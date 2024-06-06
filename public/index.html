@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fondo Blanco</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="hidden-xs">
+            <div class="js-adbar section-advertising">
+                <div class="container-fluid">
+                    Envíos a todo CABA por $3.000 - ¡Retirá gratis por nuestras sucursales de Barracas y Flores!
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="productCatalog" class="product-catalog">
+            <!-- Aquí se mostrarán los productos -->
+        </div>
+    </main>
+
+    <footer>
+        <!-- Contenido del pie de página -->
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/products')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                        const productCatalog = document.getElementById('productCatalog');
+                        data.products.forEach(product => {
+                            const productElement = document.createElement('div');
+                            productElement.classList.add('product');
+
+                            productElement.innerHTML = `
+                                <img src="${product.imagen_url}" alt="${product.nombre}">
+                                <h3>${product.nombre}</h3>
+                                <p>Precio: $${product.precio}</p>
+                                <p>Descripción: ${product.descripcion}</p>
+                                <button onclick="addToCart(${product.id})">Agregar al carrito</button>
+                            `;
+
+                            productCatalog.appendChild(productElement);
+                        });
+                    } else {
+                        console.error('Error al obtener los productos:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        function addToCart(productId) {
+            const token = localStorage.getItem('token'); // Asegúrate de que el token esté guardado en localStorage
+
+            fetch('/carrito/addToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: token,
+                    product: { id: productId }
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    alert('Producto agregado al carrito con éxito');
+                } else {
+                    alert('Error al agregar el producto al carrito: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

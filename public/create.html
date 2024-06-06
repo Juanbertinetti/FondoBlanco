@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+</head>
+<body>
+    <h2>Registro de Usuario</h2>
+    <form id="registro-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br><br>
+
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" required><br><br>
+
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required><br><br>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <div id="mensaje"></div>
+
+    <script>
+        document.getElementById('registro-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const apellido = document.getElementById('apellido').value;
+            const usuario = document.getElementById('usuario').value;
+            const contrasena = document.getElementById('contrasena').value;
+
+            try {
+                const response = await fetch('/user/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: nombre,
+                        lastname: apellido,
+                        username: usuario,
+                        pass: contrasena
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Registro exitoso
+                    document.getElementById('mensaje').innerText = "Usuario registrado correctamente";
+                } else {
+                    // Error en el registro
+                    document.getElementById('mensaje').innerText = "Error al registrar usuario: " + data.message;
+                }
+            } catch (error) {
+                console.error('Error al registrar usuario:', error);
+                document.getElementById('mensaje').innerText = "Error de conexión";
+            }
+        });
+    </script>
+</body>
+</html>

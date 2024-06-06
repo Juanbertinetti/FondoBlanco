@@ -1,0 +1,100 @@
+[
+  {
+    "name": "John",
+    "lastname": "Doe",
+    "username": "johndoe",
+    "pass": "pass1",
+    "id": 101
+  },
+  {
+    "name": "Alice",
+    "lastname": "Johnson",
+    "username": "alicejohn",
+    "pass": "pass2",
+    "id": 102
+  },
+  {
+    "name": "Bob",
+    "lastname": "Smith",
+    "username": "bobsmith",
+    "pass": "pass3",
+    "id": 103
+  },
+  {
+    "name": "Emily",
+    "lastname": "Williams",
+    "username": "emilywill",
+    "pass": "pass4",
+    "id": 104
+  },
+  {
+    "name": "Michael",
+    "lastname": "Brown",
+    "username": "michaelbrown",
+    "pass": "pass5",
+    "id": 105
+  },
+  {
+    "name": "Olivia",
+    "lastname": "Martinez",
+    "username": "oliviamar",
+    "pass": "pass6",
+    "id": 106
+  },
+  {
+    "name": "David",
+    "lastname": "Taylor",
+    "username": "davidtaylor",
+    "pass": "pass7",
+    "id": 107
+  },
+  {
+    "name": "Sophia",
+    "lastname": "Lee",
+    "username": "sophialee",
+    "pass": "pass8",
+    "id": 108
+  },
+  {
+    "name": "William",
+    "lastname": "Harris",
+    "username": "williamhar",
+    "pass": "pass9",
+    "id": 109
+  },
+  {
+    "name": "Ella",
+    "lastname": "Clark",
+    "username": "ellaclark",
+    "pass": "pass10",
+    "id": 110
+  },
+  {
+    "name": "Angel",
+    "lastname": "Magaquian",
+    "username": "amagaquian",
+    "id": 111,
+    "pass": "$2a$08$oZciXhBDMsARVIwR5vuz0.TGfj.kCPn8XLrXclxAZkiHajVrqNYQK"
+  },
+  {
+    "name": "John",
+    "lastname": "Doe",
+    "username": "johndoe",
+    "id": 112,
+    "pass": "$2a$08$1HN6oIKg8t944q0hm0LH2.Et4q.5QhpoTSl38ugp4HBsTQSEHzVAe"
+  },
+  {
+    "name": "Juan Cruz",
+    "lastname": "Bertinetti",
+    "username": "jc",
+    "id": 113,
+    "pass": "$2a$08$ZanINGTaAsTrowm6mK.L3e48UIyzsoSrz6s/cFq8Zix35xG7qqUsa"
+  },
+  {
+    "name": "Juan",
+    "lastname": "Berti",
+    "username": "jcberti",
+    "id": 114,
+    "pass": "$2a$08$l1C81lmfX2UTlTDzVEnoyeoiKTaAN0TrtHaLKuCzi7Tub7KAURERq"
+  }
+]

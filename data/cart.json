@@ -1,0 +1,11 @@
+[
+  {
+    "userId": 114,
+    "product": {
+      "id": 1,
+      "name": "Producto de prueba",
+      "price": 100,
+      "quantity": 1
+    }
+  }
+]
