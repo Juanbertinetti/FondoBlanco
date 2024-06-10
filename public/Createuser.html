@@ -5,40 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registro Fondo Blanco</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-    <!-- Estilos CSS -->
     <link rel="stylesheet" href="styles/style.create.css">
-    <!-- Favicon -->
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <!-- Referenciar el script de manejo del formulario -->
+    <script src="scripts/formHandler.js"></script>
 </head>
 <body>
     <main>
         <article>
             <section>
-                <form action="/" method="POST" id="register">
-                    <h1>Registrate</h1>
-                    <img src="Images/facebook.svg" title="Inicia Sesion con Facebook" alt="Inicia Sesion con Facebook">
-                    <img src="Images/github.svg" title="Inicia Sesion con Google" alt="Inicia Sesion con Google">
-                    <img src="Images/google.svg" title="Inicia Sesion con Twitter" alt="Inicia Sesion con Twitter">
-                    <img src="Images/twitter.svg" title="Inicia Sesion con GitHub" alt="Inicia Sesion con GitHub">
-
-                    <input type="text" name="name" placeholder="Nombre"><br/>
-                    <input type="text" name="surname" placeholder="Apellidos"><br/>
-                    <input type="email" name="email" placeholder="Correo electr&oacute;nico"><br/>
-                    <input type="password" name="password" placeholder="Contrase&ntilde;a"><br/>
-                    <input type="password" name="password2" placeholder="Repite la Contrase&ntilde;a"><br/>
+                <form action="/user/create" method="POST" id="register">
+                    <h1>Regístrate</h1>
+                    <!-- Tus campos de formulario -->
+                    <input type="text" name="name" placeholder="Nombre" required><br/>
+                    <input type="text" name="lastname" placeholder="Apellidos" required><br/>
+                    <input type="text" name="username" placeholder="Usuario" required><br/>
+                    <input type="email" name="email" placeholder="Correo electrónico" required><br/>
+                    <input type="password" name="password" placeholder="Contraseña" required><br/>
+                    <input type="password" name="password2" placeholder="Repite la Contraseña" required><br/>
                     <button type="submit">Entrar</button>
                     <button type="reset">Limpiar</button>
-
-                    <p>Ya tienes cuenta ?</p>
+                    <p>¿Ya tienes cuenta?</p>
                     <p>
-                        <a href="Login.html">Inicia Sesion</a>
+                        <a href="login.html">Inicia Sesión</a>
                     </p>
                 </form>
             </section>
         </article>
     </main>
-    
 </body>
 </html>
