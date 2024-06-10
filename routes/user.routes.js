@@ -5,30 +5,40 @@ import jwt from 'jsonwebtoken';
 const router = Router();
 const SECRET = "_AQPsssHV56kFO7ImQL9DPEj5UzCYuLGB8bSAmedv74gLPueV9abm51Ca18rIGJC";
 
-router.post('/login', (req, res) => {
-  const { username, pass } = req.body;
+// Supongamos que tienes una tabla de usuarios en tu base de datos
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const connection = req.db;
 
-  req.db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
-    if (err) {
-      console.error('Error al obtener el usuario:', err);
-      return res.status(500).json({ status: false, message: 'Error de servidor' });
-    }
+  connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+      if (err) {
+          console.error('Error al consultar la base de datos:', err);
+          return res.status(500).json({ status: false, message: "Error de servidor" });
+      }
 
-    if (results.length === 0) {
-      return res.status(404).json({ status: false, message: 'Usuario no encontrado' });
-    }
+      if (results.length === 0) {
+          return res.status(401).json({ status: false, message: "Usuario no encontrado" });
+      }
 
-    const user = results[0];
+      const user = results[0];
 
-    // Comprobar la contraseña
-    const controlPass = bcrypt.compareSync(pass, user.pass);
-    if (!controlPass) {
-      return res.status(401).json({ status: false, message: 'Contraseña incorrecta' });
-    }
+      // Verificar la contraseña
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) {
+              console.error('Error al comparar las contraseñas:', err);
+              return res.status(500).json({ status: false, message: "Error de servidor" });
+          }
 
-    const token = jwt.sign({ id: user.id, username: user.username }, SECRET, { expiresIn: 86400 });
+          if (!isMatch) {
+              return res.status(401).json({ status: false, message: "Contraseña incorrecta" });
+          }
 
-    res.status(200).json({ status: true, token });
+          // Crear el token
+          const token = jwt.sign({ id: user.id, username: user.username }, SECRET, { expiresIn: '1h' });
+
+          // Devolver el token al cliente
+          res.status(200).json({ status: true, token });
+      });
   });
 });
 

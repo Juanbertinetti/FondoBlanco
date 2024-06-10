@@ -2,10 +2,10 @@ import express from 'express';
 import mysql from 'mysql';
 import userRouter from './routes/user.routes.js';
 import carritosRouter from './routes/carritos.routes.js';
-import productsRouter from './routes/products.routes.js'; // Importar el nuevo router
+import productsRouter from './routes/products.routes.js';
 
 const app = express();
-const port = 3001;
+const port = 3002;
 
 // Configuración de la conexión a la base de datos
 const connection = mysql.createConnection({
@@ -38,7 +38,7 @@ app.use('/user', userRouter);
 app.use('/carrito', carritosRouter);
 app.use('/api', productsRouter); // Agregar el router de productos
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 // Iniciar el servidor
 app.listen(port, () => {

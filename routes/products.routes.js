@@ -1,17 +1,14 @@
-import { Router } from 'express';
+import express from 'express';
 
-const router = Router();
+const router = express.Router();
 
 router.get('/products', (req, res) => {
-    const connection = req.db;
-
-    connection.query('SELECT * FROM productos', (error, results) => {
-        if (error) {
-            console.error('Error al obtener los productos:', error);
-            return res.status(500).json({ status: false, message: 'Error al obtener los productos' });
+    const query = 'SELECT id, nombre, precio, categoria, descripcion, imagen_url FROM productos';
+    req.db.query(query, (err, results) => {
+        if (err) {
+            return res.status(500).send({ status: false, error: 'Error al obtener los productos' });
         }
-
-        res.status(200).json({ status: true, products: results });
+        res.json({ status: true, products: results });
     });
 });
 
