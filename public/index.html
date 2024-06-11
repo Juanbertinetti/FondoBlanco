@@ -28,11 +28,43 @@
         </div>
     </nav>
 
-    <header>
-        <h1>Catálogo de Productos</h1>
-    </header>
-    <div id="catalog" class="product-catalog"></div>
-    <footer>
+    <!-- Sidebar -->
+    <div class="d-flex">
+        <nav id="sidebar" class="bg-light border-end">
+            <h2 class="p-3">CATEGORÍAS</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">Vinos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Espumantes</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Cervezas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Gaseosas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Jugos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Aguas</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main content -->
+        <div class="flex-grow-1 p-3">
+            <!-- Banner -->
+            <img src="images/banner.png" alt="Banner" class="img-fluid w-100 mb-4">
+
+            <!-- Catálogo de Productos -->
+            <header>
+                <h1>Productos Destacados</h1>
+            </header>
+            <div id="catalog" class="row"></div> <!-- Añadimos la clase 'row' aquí -->
+
+            <img src="images/banner.png" alt="Banner" class="img-fluid w-100 mb-4">
+
+            <header>
+                <h1>Productos Mas Vendidos</h1>
+            </header>
+
+            <div id="catalog" class="row"></div> <!-- Añadimos la clase 'row' aquí -->
+
+        </div>
+    </div>
+
+    <footer class="text-center mt-4">
         <p>Todos los derechos reservados &copy; 2024</p>
     </footer>
     <script src="scripts/catalog.js"></script>
