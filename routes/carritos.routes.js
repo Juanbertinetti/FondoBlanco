@@ -1,29 +1,76 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
-
 const router = express.Router();
-const SECRET = "_AQPsssHV56kFO7ImQL9DPEj5UzCYuLGB8bSAmedv74gLPueV9abm51Ca18rIGJC";
 
-router.post('/addToCart', async (req, res) => {
-    const { token, product } = req.body;
-    const connection = req.db;
+// Crear un nuevo carrito
+router.post('/', (req, res) => {
+    const { userId } = req.body;
+    const query = 'INSERT INTO carritos (userId) VALUES (?)';
 
-    try {
-        const decoded = jwt.verify(token, SECRET);
+    req.db.query(query, [userId], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al crear el carrito' });
+        }
+        res.status(201).json({ cartId: result.insertId });
+    });
+});
 
-        req.db.query('INSERT INTO cart (user_id, product_name, price, quantity) VALUES (?, ?, ?, ?)',
-            [decoded.id, product.name, product.price, product.quantity], (error, results) => {
-                if (error) {
-                    console.error('Error al agregar el producto al carrito en la base de datos:', error);
-                    res.status(500).json({ status: false, message: "Error de servidor" });
-                    return;
-                }
-                res.status(200).json({ status: true, message: "Producto agregado al carrito exitosamente" });
-            });
-    } catch (error) {
-        console.error(error);
-        res.status(400).json({ status: false, message: "Token inválido o error al agregar el producto al carrito" });
-    }
+// Agregar un producto al carrito
+router.post('/:cartId/items', (req, res) => {
+    const { cartId } = req.params;
+    const { productId, quantity } = req.body;
+    const query = 'INSERT INTO carrito_items (cartId, productId, quantity) VALUES (?, ?, ?)';
+
+    req.db.query(query, [cartId, productId, quantity], (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al agregar el producto al carrito' });
+        }
+        res.status(200).json({ message: 'Producto agregado al carrito' });
+    });
+});
+
+// Obtener los productos del carrito
+router.get('/:cartId/items', (req, res) => {
+    const cartId = req.params.cartId; // Asegurémonos de obtener el cartId correctamente
+    const query = `
+        SELECT p.*, ci.quantity 
+        FROM productos p
+        JOIN cart_items ci ON p.id = ci.product_id
+        WHERE ci.cart_id = ?
+    `;
+
+    req.db.query(query, [cartId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener los productos del carrito:', err);
+            return res.status(500).json({ error: 'Error al obtener los productos del carrito', details: err.message });
+        }
+        res.status(200).json(results);
+    });
+});
+
+// Eliminar un producto del carrito
+router.delete('/:cartId/items/:itemId', (req, res) => {
+    const { cartId, itemId } = req.params;
+    const query = 'DELETE FROM carrito_items WHERE cartId = ? AND productId = ?';
+
+    req.db.query(query, [cartId, itemId], (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al eliminar el producto del carrito' });
+        }
+        res.status(200).json({ message: 'Producto eliminado del carrito' });
+    });
+});
+
+// Eliminar el carrito
+router.delete('/:cartId', (req, res) => {
+    const { cartId } = req.params;
+    const query = 'DELETE FROM carritos WHERE id = ?';
+
+    req.db.query(query, [cartId], (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al eliminar el carrito' });
+        }
+        res.status(200).json({ message: 'Carrito eliminado' });
+    });
 });
 
 export default router;

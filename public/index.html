@@ -1,73 +1,120 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Productos</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Mi E-commerce</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="create.html">Registrarse</a>
-                    </li>
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Mi E-commerce</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Iniciar Sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="create.html">Registrarse</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="container-icon">
+                                <div class="container-cart-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                    </svg>
+                                    <div class="count-products">
+                                        <span id="contador-productos">0</span>
+                                    </div>
+                                </div>
+                                <div class="container-cart-products hidden-cart">
+                                    <div class="row-product hidden">
+                                        <div class="cart-product">
+                                            <div class="info-cart-product">
+                                                <span class="cantidad-producto-carrito">1</span>
+                                                <p class="titulo-producto-carrito">Zapatos Nike</p>
+                                                <span class="precio-producto-carrito">$80</span>
+                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="cart-total hidden">
+                                        <h3>Total:</h3>
+                                        <span class="total-pagar">$200</span>
+                                    </div>
+                                    <p class="cart-empty">El carrito está vacío</p>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Megamenu -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categorías
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Cervezas</a></li>
+                                <li><a class="dropdown-item" href="#">Productos destacados</a></li>
+                                <li><a class="dropdown-item" href="#">Vinos</a></li>
+                                <li><a class="dropdown-item" href="#">Espumantes</a></li>
+                                <li><a class="dropdown-item" href="#">Gaseosas</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Sidebar -->
-    <div class="d-flex">
-        <nav id="sidebar" class="bg-light border-end">
-            <h2 class="p-3">CATEGORÍAS</h2>
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="#">Vinos</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Espumantes</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Cervezas</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Gaseosas</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Jugos</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Aguas</a></li>
-            </ul>
         </nav>
-
-        <!-- Main content -->
-        <div class="flex-grow-1 p-3">
-            <!-- Banner -->
-            <img src="images/banner.png" alt="Banner" class="img-fluid w-100 mb-4">
-
-            <!-- Catálogo de Productos -->
-            <header>
-                <h1>Productos Destacados</h1>
-            </header>
-            <div id="catalog" class="row"></div> <!-- Añadimos la clase 'row' aquí -->
-
-            <img src="images/banner.png" alt="Banner" class="img-fluid w-100 mb-4">
-
-            <header>
-                <h1>Productos Mas Vendidos</h1>
-            </header>
-
-            <div id="catalog" class="row"></div> <!-- Añadimos la clase 'row' aquí -->
-
+    </header>
+    <div class="container">
+        <div class="row" id="catalog">
+            <!-- Productos serán cargados aquí -->
         </div>
     </div>
 
-    <footer class="text-center mt-4">
-        <p>Todos los derechos reservados &copy; 2024</p>
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contacto</h5>
+                    <p>
+                        Puedes contactarnos a través de nuestras redes sociales o enviar un correo electrónico a contacto@mi-ecommerce.com.
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Síguenos</h5>
+                    <ul class="list-unstyled d-flex justify-content-center">
+                        <li>
+                            <a href="https://facebook.com" class="me-3" target="_blank">
+                                <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png" alt="Facebook" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com" class="me-3" target="_blank">
+                                <img src="https://img.icons8.com/fluent/48/000000/twitter.png" alt="Twitter" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://instagram.com" class="me-3" target="_blank">
+                                <img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" alt="Instagram" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </footer>
+
     <script src="scripts/catalog.js"></script>
+    <script src="scripts/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
