@@ -1,3 +1,4 @@
+
 const btnCart = document.querySelector('.container-cart-icon');
 const containerCartProducts = document.querySelector('.container-cart-products');
 
@@ -33,6 +34,7 @@ function addToCart(infoProduct) {
         allProducts = [...allProducts, infoProduct];
     }
 
+    console.log("Carrito de compras:", allProducts);  // Debugging: Ver el estado del carrito
     showHTML();
 }
 
@@ -81,16 +83,65 @@ const showHTML = () => {
                 stroke="currentColor"
                 class="icon-close"
             >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                />
             </svg>
         `;
 
         rowProduct.append(containerProduct);
 
-        total += parseInt(product.quantity * product.price.slice(1));
+        total += parseFloat(product.quantity) * parseFloat(product.price.slice(1));
         totalOfProducts += product.quantity;
     });
 
     valorTotal.innerText = `$${total}`;
     countProducts.innerText = totalOfProducts;
 };
+
+// Lógica para el botón "Ir a pagar"
+document.getElementById('checkout-button').addEventListener('click', () => {
+    const summaryContainer = document.getElementById('checkout-summary');
+    const totalContainer = document.getElementById('checkout-total');
+    
+    summaryContainer.innerHTML = '';
+    
+    let total = 0;
+    allProducts.forEach(product => {
+        const productSummary = document.createElement('div');
+        productSummary.innerHTML = `
+            <p>${product.quantity} x ${product.title} - ${product.price}</p>
+        `;
+        summaryContainer.append(productSummary);
+        total += parseInt(product.quantity * product.price.slice(1));
+    });
+    
+    totalContainer.innerText = `$${total}`;
+    
+    const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+    checkoutModal.show();
+});
+
+// Lógica para el botón "Comprar" dentro del modal
+document.getElementById('confirm-purchase').addEventListener('click', () => {
+    const total = document.getElementById('checkout-total').innerText.slice(1);
+
+    fetch('/send-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cart: allProducts, total })
+    }).then(response => {
+        if (response.ok) {
+            alert('Correo enviado con éxito.');
+        } else {
+            response.text().then(text => alert('Hubo un problema al enviar el correo: ' + text));
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un problema al enviar el correo: ' + error);
+    });
+});

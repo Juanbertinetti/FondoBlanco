@@ -6,6 +6,7 @@ const router = Router();
 const SECRET = "_AQPsssHV56kFO7ImQL9DPEj5UzCYuLGB8bSAmedv74gLPueV9abm51Ca18rIGJC";
 
 // Supongamos que tienes una tabla de usuarios en tu base de datos
+// Supongamos que tienes una tabla de usuarios en tu base de datos
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -35,6 +36,9 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ status: false, message: "Contraseña incorrecta" });
     }
+
+    // Guardar el email del usuario en la sesión
+    req.session.email = user.email;
 
     // Crear el token
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET, { expiresIn: '1h' });
