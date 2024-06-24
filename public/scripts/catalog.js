@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const infoProduct = {
                                 quantity: 1,
                                 title: productCard.querySelector('.card-title').textContent,
-                                price: productCard.querySelector('.card-text').textContent,
+                                price: productCard.querySelector('.card-text').textContent.split(' ')[1],
                             };
                             addToCart(infoProduct);
                         });
@@ -49,31 +49,4 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => console.error('Error:', error));
     }
-
-    // Aquí comienza el segundo bloque de código que quieres integrar
-
-    fetch('/api/products')
-        .then(response => response.json())
-        .then(products => {
-            const catalog = document.getElementById('catalog');
-            products.forEach(product => {
-                const productElement = document.createElement('div');
-                productElement.classList.add('col-md-4', 'item');
-                productElement.innerHTML = `
-                    <div class="card">
-                        <img src="${product.image}" class="card-img-top" alt="${product.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text">$${product.price}</p>
-                            <button class="btn btn-primary btn-add-cart">Agregar al carrito</button>
-                        </div>
-                    </div>
-                `;
-                catalog.appendChild(productElement);
-            });
-        })
-        .catch(error => console.error('Error al obtener los productos:', error));
-
-    // Fin del segundo bloque de código
-
 });
