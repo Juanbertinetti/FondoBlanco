@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
     <div id="header"></div>
-    <div class="container">
+    <div class="container mt-4">
         <div class="row" id="catalog">
             <!-- Productos serán cargados aquí -->
+        </div>
+    </div>
+    <!-- Contenedor del carrito -->
+    <div class="container-cart-products hidden-cart">
+        <div class="row row-product">
+            <!-- Aquí se añadirán dinámicamente los productos del carrito -->
+        </div>
+        <div class="cart-total">
+            <p>Total a pagar: <span class="total-pagar">$0.00</span></p>
         </div>
     </div>
     <footer class="bg-light text-center text-lg-start">
@@ -20,9 +28,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5 class="text-uppercase">Contacto</h5>
-                    <p>
-                        Puedes contactarnos a través de nuestras redes sociales o enviar un correo electrónico a contacto@mi-ecommerce.com.
-                    </p>
+                    <p>Puedes contactarnos a través de nuestras redes sociales o enviar un correo electrónico a contacto@mi-ecommerce.com.</p>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5 class="text-uppercase">Síguenos</h5>
@@ -49,15 +55,16 @@
     </footer>
 
     <script>
-        // Incluir el contenido del encabezado en todas las páginas
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header').innerHTML = data;
+                initializeCart();
             })
             .catch(error => console.error('Error al cargar el header:', error));
     </script>
     <script src="scripts/catalog.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="scripts/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

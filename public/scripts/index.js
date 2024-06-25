@@ -19,7 +19,11 @@ function initializeCart() {
         if (productIndex !== -1) {
             cart[productIndex].quantity += 1;
         } else {
-            cart.push(product);
+            cart.push({
+                title: product.title,
+                price: parseFloat(product.price), // Asegúrate de convertir el precio a número
+                quantity: 1
+            });
         }
 
         updateCart();
@@ -48,7 +52,7 @@ function initializeCart() {
                     <div class="info-cart-product">
                         <span class="cantidad-producto-carrito">${product.quantity}</span>
                         <p class="titulo-producto-carrito">${product.title}</p>
-                        <span class="precio-producto-carrito">$${(product.quantity * parseFloat(product.price)).toFixed(2)}</span>
+                        <span class="precio-producto-carrito">$${(product.quantity * product.price).toFixed(2)}</span>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -61,7 +65,7 @@ function initializeCart() {
 
                 cartRows.appendChild(productElement);
 
-                total += product.quantity * parseFloat(product.price);
+                total += product.quantity * product.price;
             });
         }
 
