@@ -14,15 +14,6 @@
             <!-- Productos serán cargados aquí -->
         </div>
     </div>
-    <!-- Contenedor del carrito -->
-    <div class="container-cart-products hidden-cart">
-        <div class="row row-product">
-            <!-- Aquí se añadirán dinámicamente los productos del carrito -->
-        </div>
-        <div class="cart-total">
-            <p>Total a pagar: <span class="total-pagar">$0.00</span></p>
-        </div>
-    </div>
     <footer class="bg-light text-center text-lg-start">
         <div class="container p-4">
             <div class="row">
@@ -59,7 +50,7 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header').innerHTML = data;
-                initializeCart();
+                initializeCart(); // Inicializar el carrito después de cargar el header
             })
             .catch(error => console.error('Error al cargar el header:', error));
     </script>

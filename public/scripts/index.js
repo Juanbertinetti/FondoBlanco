@@ -8,9 +8,14 @@ function initializeCart() {
     const cartEmpty = document.querySelector('.cart-empty');
     const cartRows = document.querySelector('.row-product');
     const cartTotalContainer = document.querySelector('.cart-total');
+    const checkoutButton = document.getElementById('checkout-button');
 
     cartIcon.addEventListener('click', () => {
         cartContainer.classList.toggle('hidden-cart');
+    });
+
+    checkoutButton.addEventListener('click', () => {
+        showCheckoutSummary();
     });
 
     function addToCart(product) {
@@ -71,6 +76,15 @@ function initializeCart() {
 
         productCount.textContent = cart.reduce((acc, product) => acc + product.quantity, 0);
         cartTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function showCheckoutSummary() {
+        let summary = 'Resumen de tu compra:\n\n';
+        cart.forEach(product => {
+            summary += `${product.quantity} x ${product.title} - $${(product.quantity * product.price).toFixed(2)}\n`;
+        });
+        summary += `\nTotal: ${document.querySelector('.total-pagar').textContent}`;
+        alert(summary);
     }
 
     window.addToCart = addToCart;
